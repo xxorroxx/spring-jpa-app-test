@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-jpa-app-test-jenkis
+spec:
+  selector:
+   matchLabels:
+    app: spring-app-test-jenkis
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: spring-app-test-jenkis
+    spec:
+      containers:
+        - name: billing-app-back-jenkis
+          image: ?????      
+          ports:
+            - containerPort: 7280
+              name: appspringport
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: spring-jpa-app-test-service-jenkis
+  labels:
+    app: spring-app-test-jenkis
+spec:   
+  ports:
+  - name: spring-app-test-jenkis
+    port: 7280
+    nodePort : 31780 
+  #type: LoadBalancer
+  type: NodePort
+  selector:
+   app: spring-app-test-jenkis
